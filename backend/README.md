@@ -73,6 +73,47 @@ docker compose restart mintd
 
 The mint database is persisted in a Docker volume named `mint_data`. This ensures your mint state is preserved across container restarts.
 
+## Railway Deployment
+
+This backend is configured for deployment on Railway. Follow these steps:
+
+### 1. Deploy to Railway
+
+1. **Connect your repository to Railway:**
+   - Go to [Railway](https://railway.app)
+   - Create a new project
+   - Connect your GitHub repository
+   - Railway will automatically detect the Dockerfile in the `/backend` directory
+
+2. **Set environment variables:**
+   - In Railway dashboard, go to your service
+   - Add these environment variables:
+     ```
+     CDK_MINTD_URL=https://your-app-name.railway.app
+     CDK_MINTD_MNEMONIC=your-secure-mnemonic-here
+     ```
+
+3. **Deploy:**
+   - Railway will automatically build and deploy your container
+   - The mint API will be available at your Railway URL
+   - The LDK Node management interface will be available at `https://your-app-name.railway.app:8091`
+
+### 2. Railway Configuration
+
+The deployment uses:
+- **Dockerfile**: Located in `/backend/Dockerfile`
+- **Railway config**: `/backend/railway.json`
+- **Ignore file**: `.railwayignore` (excludes Kotlin files)
+
+### 3. Environment Variables
+
+Key environment variables for Railway:
+- `CDK_MINTD_URL`: Your Railway app URL
+- `CDK_MINTD_MNEMONIC`: Secure mnemonic for the mint
+- All other variables have sensible defaults
+
 ## Integration with Frontend
 
-The mint server will be available at `http://localhost:3338` for your frontend application to connect to.
+The mint server will be available at:
+- **Local development**: `http://localhost:3338`
+- **Railway production**: `https://your-app-name.railway.app`

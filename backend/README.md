@@ -1,6 +1,6 @@
 # Mandel Backend - Cashu Mint
 
-This directory contains the backend configuration for the Mandel ecash wallet, using the Cashu mint server.
+This directory contains the backend configuration for the Mandel ecash wallet, using the Cashu mint server with LDK Node Lightning backend.
 
 ## Quick Start
 
@@ -9,60 +9,60 @@ This directory contains the backend configuration for the Mandel ecash wallet, u
    cp env.example .env
    ```
 
-2. **Generate a mint private key:**
+2. **Generate a mint private key (if needed):**
    ```bash
-   python3 -c "import secrets; print(secrets.token_hex(32))"
+   python3 -c "import secrets; print('MINT_PRIVATE_KEY=' + secrets.token_hex(32))" >> .env
    ```
-   Copy the output and paste it as the value for `MINT_PRIVATE_KEY` in your `.env` file.
 
 3. **Start the mint server:**
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 4. **Check if the server is running:**
    ```bash
-   curl http://localhost:3338/info
+   curl http://localhost:3338/v1/info
    ```
 
 ## Configuration
 
-The mint server can be configured through environment variables in the `.env` file:
+The mint server uses the CDK mintd with LDK Node Lightning backend. Key configuration:
 
-- `MINT_PRIVATE_KEY`: Private key for the mint (required)
-- `MINT_DB_PATH`: Path to the SQLite database (default: `/data/mint.db`)
-- `MINT_HOST`: Host to bind to (default: `0.0.0.0`)
-- `MINT_PORT`: Port to listen on (default: `3338`)
-- `MINT_LIGHTNING_BACKEND`: Lightning backend to use (`fake`, `lnd`, `clightning`, `eclair`)
-- `MINT_LIGHTNING_URL`: URL to your Lightning node (if using real Lightning)
-- `MINT_LIGHTNING_TOKEN`: Authentication token for your Lightning node
+- **Lightning Backend**: LDK Node (testnet)
+- **Database**: SQLite (persistent)
+- **Port**: 3338
+- **Network**: Bitcoin testnet via Esplora
+- **Mnemonic**: Default test mnemonic (change for production)
+
+The server automatically generates a private key and mnemonic if not provided in the `.env` file.
 
 ## API Endpoints
 
 The mint server exposes the following main endpoints:
 
-- `GET /info` - Get mint information
-- `POST /mint` - Mint new ecash tokens
-- `POST /melt` - Melt ecash tokens (redeem for Lightning)
-- `POST /check` - Check if tokens are valid
-- `POST /split` - Split tokens
-- `POST /swap` - Swap tokens
+- `GET /v1/info` - Get mint information
+- `POST /v1/mint/bolt11` - Mint new ecash tokens (Bolt11)
+- `POST /v1/mint/bolt12` - Mint new ecash tokens (Bolt12)
+- `POST /v1/melt/bolt11` - Melt ecash tokens (Bolt11)
+- `POST /v1/melt/bolt12` - Melt ecash tokens (Bolt12)
+- `POST /v1/swap` - Swap tokens
+- `POST /v1/check` - Check if tokens are valid
 
 ## Development
 
 ### Viewing Logs
 ```bash
-docker-compose logs -f mintd
+docker compose logs -f mintd
 ```
 
 ### Stopping the Server
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Restarting the Server
 ```bash
-docker-compose restart mintd
+docker compose restart mintd
 ```
 
 ### Database Persistence

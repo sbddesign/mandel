@@ -1,0 +1,19 @@
+# Ignore CDK directory (external dependency)
+cdk/
+
+# Ignore backup files
+backups/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore build artifacts
+build/
+*.log

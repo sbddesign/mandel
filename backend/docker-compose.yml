@@ -4,18 +4,21 @@ services:
     platform: linux/amd64
     container_name: mandel-mintd
     ports:
-      - "3338:3338"  # Default mintd port
+      - "3338:3338"
     environment:
-      - MINT_PRIVATE_KEY=${MINT_PRIVATE_KEY:-}
-      - MINT_DB_PATH=${MINT_DB_PATH:-/data/mint.db}
-      - MINT_HOST=${MINT_HOST:-0.0.0.0}
-      - MINT_PORT=${MINT_PORT:-3338}
-      - MINT_LIGHTNING_BACKEND=fake
-      - MINT_LIGHTNING_URL=${MINT_LIGHTNING_URL:-}
-      - MINT_LIGHTNING_TOKEN=${MINT_LIGHTNING_TOKEN:-}
+      - CDK_MINTD_URL=http://localhost:3338
+      - CDK_MINTD_LN_BACKEND=ldk-node
+      - CDK_MINTD_LISTEN_HOST=0.0.0.0
+      - CDK_MINTD_LISTEN_PORT=3338
+      - CDK_MINTD_MNEMONIC=${MINT_MNEMONIC:-abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about}
+      - CDK_MINTD_DATABASE=sqlite
+      - CDK_MINTD_CACHE_BACKEND=memory
+      - CDK_MINTD_LDK_NODE_NETWORK=testnet
+      - CDK_MINTD_LDK_NODE_ESPLORA_URL=https://blockstream.info/testnet/api
+      - CDK_MINTD_LDK_NODE_LISTENING_ADDRESSES=0.0.0.0:9735
     volumes:
-      - mint_data:/data
-    restart: unless-stopped
+      - mint_data:/usr/src/app/ldk_node_data
+    command: ["cdk-mintd"]
     networks:
       - mandel-network
 

@@ -25,7 +25,8 @@ This directory contains the backend configuration for the Mandel ecash wallet, u
    ```
 
 5. **Access LDK Node management interface:**
-   Open your browser and go to: http://localhost:8091
+   - **Local development**: http://localhost:8091
+   - **Production (Render)**: Use SSH tunnel or management proxy (see below)
 
 ## Configuration
 
@@ -109,3 +110,36 @@ Key environment variables for Render:
 The mint server will be available at:
 - **Local development**: `http://localhost:3338`
 - **Render production**: `https://your-app-name.onrender.com`
+
+## Secure Access to LDK Node Management Interface
+
+The LDK Node management interface (port 8091) is not publicly accessible on Render for security reasons. Here are two ways to access it securely:
+
+### Option 1: SSH Tunnel (Recommended)
+
+Use the provided script to create a secure SSH tunnel:
+
+```bash
+# Run the access script
+./access-management.sh
+
+# Then open http://localhost:8091 in your browser
+```
+
+### Option 2: Management Proxy
+
+Use the Python proxy server with basic authentication:
+
+```bash
+# Install Python dependencies (if needed)
+pip install urllib3
+
+# Run the proxy server
+python3 backend/management-proxy.py
+
+# Then open http://localhost:8080 in your browser
+# Username: admin
+# Password: mandel-secure-2024
+```
+
+**Security Note**: Change the default password in `management-proxy.py` before using in production!

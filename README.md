@@ -1,3 +1,3 @@
 # mandel
 
-Scaling Lightning Privacy with OpenID Connect
+Scaling Lightning Privacy with OpenID Connect!

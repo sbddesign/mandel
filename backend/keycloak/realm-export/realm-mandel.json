@@ -1,0 +1,19 @@
+{
+  "realm": "mandel",
+  "enabled": true,
+  "registrationAllowed": true,
+  "users": [],
+  "clients": [
+    {
+      "clientId": "mandel-gateway",
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": ["*"]
+    }
+  ],
+  "attributes": {}
+}
+

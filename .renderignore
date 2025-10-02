@@ -1,0 +1,32 @@
+# Ignore Kotlin/Android project files
+composeApp/
+iosApp/
+build/
+gradle/
+*.gradle.kts
+gradlew
+gradlew.bat
+settings.gradle.kts
+local.properties
+
+# Ignore design files
+design/
+
+# Ignore documentation (keep backend docs)
+docs/
+
+# Ignore IDE files
+*.iml
+.idea/
+.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Git files
+.git/
+.gitignore
+
+# Only deploy the backend directory
+!backend/

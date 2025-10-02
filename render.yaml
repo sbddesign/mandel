@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: mandel-mint
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    envVars:
+      - key: CDK_MINTD_URL
+        generateValue: true
+      - key: CDK_MINTD_MNEMONIC
+        value: abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about
+      - key: CDK_MINTD_LN_BACKEND
+        value: ldk-node
+      - key: CDK_MINTD_LISTEN_HOST
+        value: 0.0.0.0
+      - key: CDK_MINTD_LISTEN_PORT
+        value: 3338
+      - key: CDK_MINTD_DATABASE
+        value: sqlite
+      - key: CDK_MINTD_CACHE_BACKEND
+        value: memory
+      - key: CDK_MINTD_LDK_NODE_NETWORK
+        value: signet
+      - key: CDK_MINTD_LDK_NODE_ESPLORA_URL
+        value: https://mutinynet.com/api
+      - key: CDK_MINTD_LDK_NODE_RGS_URL
+        value: https://rgs.mutinynet.com/snapshot/0
+      - key: CDK_MINTD_LDK_NODE_BITCOIN_NETWORK
+        value: signet
+      - key: CDK_MINTD_LDK_NODE_LISTENING_ADDRESSES
+        value: 0.0.0.0:9735
+      - key: CDK_MINTD_LDK_NODE_WEBSERVER_HOST
+        value: 0.0.0.0
+      - key: CDK_MINTD_LDK_NODE_WEBSERVER_PORT
+        value: 8091

@@ -25,8 +25,7 @@ ENV CDK_MINTD_LDK_NODE_LISTENING_ADDRESSES=0.0.0.0:9735
 ENV CDK_MINTD_LDK_NODE_WEBSERVER_HOST=0.0.0.0
 ENV CDK_MINTD_LDK_NODE_WEBSERVER_PORT=8091
 
-# Create volume for persistent data
-VOLUME ["/usr/src/app/ldk_node_data"]
+# Note: Railway handles persistent data through volumes configured in the dashboard
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \

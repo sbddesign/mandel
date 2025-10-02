@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mintd:
+    image: cashubtc/mintd:latest
+    container_name: mandel-mintd
+    ports:
+      - "3338:3338"  # Default mintd port
+    environment:
+      - MINT_PRIVATE_KEY=${MINT_PRIVATE_KEY:-}
+      - MINT_DB_PATH=${MINT_DB_PATH:-/data/mint.db}
+      - MINT_HOST=${MINT_HOST:-0.0.0.0}
+      - MINT_PORT=${MINT_PORT:-3338}
+      - MINT_LIGHTNING_BACKEND=${MINT_LIGHTNING_BACKEND:-fake}
+      - MINT_LIGHTNING_URL=${MINT_LIGHTNING_URL:-}
+      - MINT_LIGHTNING_TOKEN=${MINT_LIGHTNING_TOKEN:-}
+    volumes:
+      - mint_data:/data
+    restart: unless-stopped
+    networks:
+      - mandel-network
+
+volumes:
+  mint_data:
+
+networks:
+  mandel-network:
+    driver: bridge

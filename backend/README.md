@@ -146,7 +146,7 @@ python3 backend/management-proxy.py
 
 ## Persistent Storage
 
-The LDK Node data is now configured to persist across deployments using Render's persistent filesystem. This means:
+The LDK Node data is now configured to persist across deployments using Render's persistent disk feature. This means:
 
 - ✅ **Channel state preserved** - Your Lightning channels won't be lost on redeploy
 - ✅ **Node identity maintained** - Your node's private keys and identity persist
@@ -169,10 +169,10 @@ If you need to restore from a backup:
 
 ```bash
 # Extract backup to Render service
-tar -xzf backups/ldk-node-YYYYMMDD-HHMMSS/ldk-node-data.tar.gz -C /opt/render/project/src/
+tar -xzf backups/ldk-node-YYYYMMDD-HHMMSS/ldk-node-data.tar.gz -C /data/
 ```
 
 ### Data Location
 
-- **Persistent data**: `/opt/render/project/src/ldk_node_data/`
+- **Persistent data**: `/data/ldk_node_data/` (mounted disk)
 - **Symlinked to**: `/usr/src/app/ldk_node_data/` (inside container)

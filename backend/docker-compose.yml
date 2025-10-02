@@ -13,8 +13,9 @@ services:
       - CDK_MINTD_MNEMONIC=${MINT_MNEMONIC:-abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about}
       - CDK_MINTD_DATABASE=sqlite
       - CDK_MINTD_CACHE_BACKEND=memory
-      - CDK_MINTD_LDK_NODE_NETWORK=testnet
-      - CDK_MINTD_LDK_NODE_ESPLORA_URL=https://blockstream.info/testnet/api
+      - CDK_MINTD_LDK_NODE_NETWORK=signet
+      - CDK_MINTD_LDK_NODE_ESPLORA_URL=https://mutinynet.com/api
+      - CDK_MINTD_LDK_NODE_RGS_URL=https://rgs.mutinynet.com/snapshot/0
       - CDK_MINTD_LDK_NODE_LISTENING_ADDRESSES=0.0.0.0:9735
     volumes:
       - mint_data:/usr/src/app/ldk_node_data

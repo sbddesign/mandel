@@ -51,6 +51,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation("org.cashudevkit:cdk-kotlin:v0.13.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -88,4 +89,3 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
-

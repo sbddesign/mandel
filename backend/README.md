@@ -24,14 +24,18 @@ This directory contains the backend configuration for the Mandel ecash wallet, u
    curl http://localhost:3338/v1/info
    ```
 
+5. **Access LDK Node management interface:**
+   Open your browser and go to: http://localhost:8091
+
 ## Configuration
 
 The mint server uses the CDK mintd with LDK Node Lightning backend. Key configuration:
 
-- **Lightning Backend**: LDK Node (testnet)
+- **Lightning Backend**: LDK Node (MutinyNet Signet)
 - **Database**: SQLite (persistent)
-- **Port**: 3338
-- **Network**: Bitcoin testnet via Esplora
+- **Mint API Port**: 3338
+- **LDK Node Management**: 8091
+- **Network**: MutinyNet Signet via Esplora
 - **Mnemonic**: Default test mnemonic (change for production)
 
 The server automatically generates a private key and mnemonic if not provided in the `.env` file.

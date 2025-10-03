@@ -169,10 +169,11 @@ If you need to restore from a backup:
 
 ```bash
 # Extract backup to Render service
-tar -xzf backups/ldk-node-YYYYMMDD-HHMMSS/ldk-node-data.tar.gz -C /data/
+tar -xzf backups/ldk-node-YYYYMMDD-HHMMSS/mint-data.tar.gz -C /data/
 ```
 
 ### Data Location
 
-- **Persistent data**: `/data/ldk_node_data/` (mounted disk)
-- **Symlinked to**: `/usr/src/app/ldk_node_data/` (inside container)
+- **Persistent data**: `/data/` (mounted disk)
+- **Database file**: `/data/cdk-mintd.sqlite`
+- **LDK Node data**: `/data/ldk_node_data/` (created automatically)

@@ -28,8 +28,8 @@ ENV CDK_MINTD_LDK_NODE_LISTENING_ADDRESSES=0.0.0.0:9735
 ENV CDK_MINTD_LDK_NODE_WEBSERVER_HOST=0.0.0.0
 ENV CDK_MINTD_LDK_NODE_WEBSERVER_PORT=8091
 
-# Set persistent data directory for LDK Node (mounted disk)
-ENV CDK_MINTD_LDK_NODE_DATA_DIR=/data/ldk_node_data
+# Set work directory for mint database and configuration (mounted disk)
+ENV CDK_MINTD_WORK_DIR=/data
 
 # Copy startup script
 COPY start-mint.sh /usr/src/app/start-mint.sh

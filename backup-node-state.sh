@@ -11,15 +11,15 @@ mkdir -p "$BACKUP_DIR"
 
 # Connect to Render service and create backup from mounted disk
 echo "📡 Connecting to Render service..."
-ssh -i ~/.ssh/id_ed25519_render srv-d3ffi1d6ubrc73a4jpqg@ssh.oregon.render.com "tar -czf - /data/ldk_node_data" > "$BACKUP_DIR/ldk-node-data.tar.gz"
+ssh -i ~/.ssh/id_ed25519_render srv-d3ffi1d6ubrc73a4jpqg@ssh.oregon.render.com "tar -czf - /data" > "$BACKUP_DIR/mint-data.tar.gz"
 
 if [ $? -eq 0 ]; then
-    echo "✅ Backup created successfully: $BACKUP_DIR/ldk-node-data.tar.gz"
-    echo "📊 Backup size: $(du -h "$BACKUP_DIR/ldk-node-data.tar.gz" | cut -f1)"
+    echo "✅ Backup created successfully: $BACKUP_DIR/mint-data.tar.gz"
+    echo "📊 Backup size: $(du -h "$BACKUP_DIR/mint-data.tar.gz" | cut -f1)"
 else
     echo "❌ Backup failed"
     exit 1
 fi
 
 echo "🔄 To restore this backup, run:"
-echo "   tar -xzf $BACKUP_DIR/ldk-node-data.tar.gz -C /data/"
+echo "   tar -xzf $BACKUP_DIR/mint-data.tar.gz -C /data/"

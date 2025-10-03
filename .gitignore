@@ -17,3 +17,4 @@ Thumbs.db
 # Ignore build artifacts
 build/
 *.log
+postgres_data

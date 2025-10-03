@@ -31,11 +31,9 @@ ENV CDK_MINTD_LDK_NODE_WEBSERVER_PORT=8091
 # Set work directory for mint database and configuration (mounted disk)
 ENV CDK_MINTD_WORK_DIR=/data
 
-# NUT-22 Authentication Configuration
-ENV CDK_MINTD_AUTH_TYPE=nut22
+# NUT-22 Authentication Configuration (per deep wiki specs)
 ENV CDK_MINTD_AUTH_OPENID_DISCOVERY=https://mandel-keycloak.onrender.com/realms/cashu-realm/.well-known/openid-configuration
 ENV CDK_MINTD_AUTH_OPENID_CLIENT_ID=cashu-client
-ENV CDK_MINTD_AUTH_OPENID_CLIENT_SECRET=cashu-secret
 ENV CDK_MINTD_AUTH_MINT_MAX_BAT=50
 ENV CDK_MINTD_AUTH_ENABLED_MINT=true
 ENV CDK_MINTD_AUTH_ENABLED_MELT=true

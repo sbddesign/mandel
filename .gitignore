@@ -18,5 +18,3 @@ Thumbs.db
 build/
 *.log
 postgres_data
-keycloak-backend/Dockerfile
-keycloak-backend/keycloak-export/realm-export.json

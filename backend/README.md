@@ -177,3 +177,69 @@ tar -xzf backups/ldk-node-YYYYMMDD-HHMMSS/mint-data.tar.gz -C /data/
 - **Persistent data**: `/data/` (mounted disk)
 - **Database file**: `/data/cdk-mintd.sqlite`
 - **LDK Node data**: `/data/ldk_node_data/` (created automatically)
+
+## NUT-22 Authentication with Keycloak
+
+The mint now supports NUT-22 (blind authentication) using Keycloak for OpenID Connect authentication.
+
+### Local Development
+
+Start both services locally:
+
+```bash
+# Start Keycloak and mint with authentication
+docker-compose -f docker-compose.dev.yml up -d
+
+# Test the setup
+./test-auth.sh
+```
+
+### Keycloak Configuration
+
+- **Admin Console**: http://localhost:8080/admin
+- **Admin Credentials**: admin / admin123
+- **Test User**: testuser / testpass123
+- **Realm**: cashu-realm
+- **Client**: cashu-client
+
+### Authentication Flow
+
+1. **User Registration**: Users register/login through Keycloak
+2. **Token Issuance**: Keycloak issues JWT tokens
+3. **Mint Operations**: Users use tokens for authenticated mint operations
+4. **Token Validation**: Mint validates tokens with Keycloak
+
+### Protected Endpoints
+
+The following mint endpoints require authentication:
+- ✅ **Mint** - Create new tokens
+- ✅ **Melt** - Pay Lightning invoices  
+- ✅ **Swap** - Exchange tokens
+- ✅ **Check Mint Quote** - Verify mint quotes
+- ✅ **Check Melt Quote** - Verify melt quotes
+- ✅ **Restore** - Restore proofs
+- ✅ **Check Proof State** - Verify proof states
+
+### Environment Variables
+
+Key authentication settings:
+
+```bash
+# Keycloak Discovery URL
+CDK_MINTD_AUTH_OPENID_DISCOVERY=http://keycloak:8080/realms/cashu-realm/.well-known/openid-configuration
+
+# Client Configuration
+CDK_MINTD_AUTH_OPENID_CLIENT_ID=cashu-client
+
+# Authentication Limits
+CDK_MINTD_AUTH_MINT_MAX_BAT=50
+
+# Protected Endpoints
+CDK_MINTD_AUTH_ENABLED_MINT=true
+CDK_MINTD_AUTH_ENABLED_MELT=true
+CDK_MINTD_AUTH_ENABLED_SWAP=true
+CDK_MINTD_AUTH_ENABLED_CHECK_MINT_QUOTE=true
+CDK_MINTD_AUTH_ENABLED_CHECK_MELT_QUOTE=true
+CDK_MINTD_AUTH_ENABLED_RESTORE=true
+CDK_MINTD_AUTH_ENABLED_CHECK_PROOF_STATE=true
+```

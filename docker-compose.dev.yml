@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  keycloak:
+    build: ./keycloak
+    container_name: mandel-keycloak-dev
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin123
+      - KC_DB=dev-file
+      - KC_HTTP_PORT=8080
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
+      - KC_HTTP_ENABLED=true
+    ports:
+      - "8080:8080"
+    volumes:
+      - keycloak_dev_data:/opt/keycloak/data
+    networks:
+      - mandel-network
+
+  mintd:
+    build: .
+    container_name: mandel-mintd-dev
+    environment:
+      - CDK_MINTD_URL=http://localhost:3338
+      - CDK_MINTD_LN_BACKEND=ldk-node
+      - CDK_MINTD_LISTEN_HOST=0.0.0.0
+      - CDK_MINTD_LISTEN_PORT=3338
+      - CDK_MINTD_MNEMONIC=${MINT_MNEMONIC:-abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about}
+      - CDK_MINTD_DATABASE=sqlite
+      - CDK_MINTD_CACHE_BACKEND=memory
+      - CDK_MINTD_LDK_NODE_NETWORK=signet
+      - CDK_MINTD_LDK_NODE_ESPLORA_URL=https://mutinynet.com/api
+      - CDK_MINTD_LDK_NODE_RGS_URL=https://rgs.mutinynet.com/snapshot/0
+      - CDK_MINTD_LDK_NODE_BITCOIN_NETWORK=signet
+      - CDK_MINTD_LDK_NODE_LISTENING_ADDRESSES=0.0.0.0:9735
+      - CDK_MINTD_LDK_NODE_WEBSERVER_HOST=0.0.0.0
+      - CDK_MINTD_LDK_NODE_WEBSERVER_PORT=8091
+      - CDK_MINTD_WORK_DIR=/usr/src/app/data
+      # NUT-22 Authentication Configuration
+      - CDK_MINTD_AUTH_OPENID_DISCOVERY=http://keycloak:8080/realms/cashu-realm/.well-known/openid-configuration
+      - CDK_MINTD_AUTH_OPENID_CLIENT_ID=cashu-client
+      - CDK_MINTD_AUTH_MINT_MAX_BAT=50
+      - CDK_MINTD_AUTH_ENABLED_MINT=true
+      - CDK_MINTD_AUTH_ENABLED_MELT=true
+      - CDK_MINTD_AUTH_ENABLED_SWAP=true
+      - CDK_MINTD_AUTH_ENABLED_CHECK_MINT_QUOTE=true
+      - CDK_MINTD_AUTH_ENABLED_CHECK_MELT_QUOTE=true
+      - CDK_MINTD_AUTH_ENABLED_RESTORE=true
+      - CDK_MINTD_AUTH_ENABLED_CHECK_PROOF_STATE=true
+    ports:
+      - "3338:3338"  # Mint API
+      - "8091:8091"  # LDK Node management interface
+    volumes:
+      - mint_dev_data:/usr/src/app/data
+    depends_on:
+      - keycloak
+    networks:
+      - mandel-network
+
+volumes:
+  keycloak_dev_data:
+  mint_dev_data:
+
+networks:
+  mandel-network:
+    driver: bridge

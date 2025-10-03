@@ -1,0 +1,140 @@
+{
+  "realm": "cdk-test-realm",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false,
+  "clients": [
+    {
+      "clientId": "cashu-client",
+      "name": "Cashu Client",
+      "description": "Client for Cashu mint authentication",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "cashu-secret",
+      "redirectUris": [
+        "http://localhost:3000/*",
+        "https://mandel-mint.onrender.com/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000",
+        "https://mandel-mint.onrender.com"
+      ],
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "frontchannelLogout": true,
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "cdk-test",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@email.com",
+      "emailVerified": false,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "test123",
+          "temporary": false
+        }
+      ]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "offline_access",
+        "description": "Offline access",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "uma_authorization",
+        "description": "UMA Authorization",
+        "composite": false,
+        "clientRole": false
+      }
+    ]
+  },
+  "defaultRole": {
+    "name": "default-roles-cdk-test-realm",
+    "description": "Default roles for cdk-test-realm",
+    "composite": true,
+    "clientRole": false
+  },
+  "requiredCredentials": [
+    "password"
+  ],
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA1",
+  "otpPolicyInitialCounter": 0,
+  "otpPolicyDigits": 6,
+  "otpPolicyLookAheadWindow": 1,
+  "otpPolicyPeriod": 30,
+  "otpSupportedApplications": [
+    "FreeOTP",
+    "Google Authenticator"
+  ],
+  "browserSecurityHeaders": {
+    "contentSecurityPolicyReportOnly": "",
+    "xContentTypeOptions": "nosniff",
+    "referrerPolicy": "no-referrer",
+    "xRobotsTag": "none",
+    "xFrameOptions": "SAMEORIGIN",
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+    "xXSSProtection": "1; mode=block",
+    "strictTransportSecurity": "max-age=31536000; includeSubDomains"
+  },
+  "smtpServer": {},
+  "eventsEnabled": false,
+  "eventsListeners": [
+    "jboss-logging"
+  ],
+  "enabledEventTypes": [],
+  "adminEventsEnabled": false,
+  "adminEventsDetailsEnabled": false,
+  "internationalizationEnabled": false,
+  "supportedLocales": [],
+  "defaultLocale": "",
+  "browserFlow": "browser",
+  "registrationFlow": "registration",
+  "directGrantFlow": "direct grant",
+  "resetCredentialsFlow": "reset credentials",
+  "clientAuthenticationFlow": "clients",
+  "dockerAuthenticationFlow": "docker auth",
+  "attributes": {},
+  "keycloakVersion": "25.0.6",
+  "userManagedAccessAllowed": false,
+  "clientProfiles": {
+    "profiles": []
+  },
+  "clientPolicies": {
+    "policies": []
+  }
+}
